@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
+  <a class="navbar-brand py-0 pb-1" href="{% url 'index' %}">Магическая лавка</a>
+  <button class="navbar-toggler py-0" type="button" id="toggler" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">Меню  <i class="fa fa-angle-double-down p-0"></i>
+  </button>
+  <div class="collapse navbar-collapse  py-0" id="navbarNav">
+    <ul class="navbar-nav ">
+      <li class="nav-item {% if nbar == 'index' %}active{% endif %} border-right border-light mb-1 mb-sm-0">
+        <a class="nav-link btn btn-dark" href="{% url 'index' %}">О лавке<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item {% if nbar == 'plants' %}active{% endif %} border-right border-light mb-1 mb-sm-0">
+        <a class="nav-link btn btn-dark" href="{% url 'plants' %}">Растения</a>
+      </li>
+      <li class="nav-item {% if nbar == 'liquids' %}active{% endif %} border-right border-light mr-sm-1 ">
+        <a class="nav-link btn btn-dark" href="{% url 'liquids' %}">Жидкости</a>
+      </li>
+      <li class="nav-item {% if nbar == 'items' %}active{% endif %} border-right border-light mr-sm-1 ">
+        <a class="nav-link btn btn-dark" href="{% url 'items' %}">Предметы</a>
+      </li>
+      <li class="nav-item {% if nbar == 'contacts' %}active{% endif %} mr-sm-1">
+        <a class="nav-link btn btn-dark" href="{% url 'contacts' %}">Контакты</a>
+      </li>
+    </ul>
+  </div>
+</nav>

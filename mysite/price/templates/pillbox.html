@@ -1,0 +1,232 @@
+
+<div class="fixed-bottom">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark  row no-gutters " id="basket-list">
+      
+    </div>
+  </div>
+  <nav class="navbar navbar-dark bg-dark my-0 py-1">
+    <button class="navbar-toggler p-0 border-0" type="button" id="openbasket-btn" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="btn btn-dark btn-sm center text-ligt font-weight-bold border border-light rounded" id="openbasketbtn">ОТКРЫТЬ КОРЗИНУ</div>
+    </button>    
+    <div class="text-light" id="basket-stats">
+      
+    </div>
+    <a href="{% url 'payment' %}">
+    <button type="button" class="btn btn-dark btn-sm center text-ligt font-weight-bold border border-light rounded"  id="btnModal"  href="{% url 'payment' %}">ОФОРМИТЬ ЗАКАЗ</button></a> <!--data-toggle="modal" data-target="#exampleModal1"-->
+  </nav>
+</div>
+
+
+<!-- Модальное окно -->
+<div class="modal fade" id="exampleModal1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Оформление заказа</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input class="my-1" id="fullname" name="fullname" type="text" placeholder="Введите ФИО" size="100"  />
+            <input class="my-1" id="address" data-ref="input" type="text" placeholder="Введите адрес" class="js-sgt-query suggestions-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" >
+            <input class="my-1" id="email" name="email" type="text" placeholder="Введите Email" size="100"/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info">Любая кнопка</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+          </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+//кнопка корзины
+$("#openbasket-btn").click(function(){
+  if ($("#openbasketbtn").text() == "ЗАКРЫТЬ КОРЗИНУ")
+    $("#openbasketbtn").text('ОТКРЫТЬ КОРЗИНУ');
+  else
+    $("#openbasketbtn").text("ЗАКРЫТЬ КОРЗИНУ");
+});
+</script>
+
+
+
+<script type="text/javascript">
+
+//Очищает и загружает корзину из LocalStorage
+function updateBasket(){
+    
+  $('#basket-list').empty();
+
+  productArr = JSON.parse(localStorage.getItem("basket"));
+ 
+  if(productArr){
+  $.each(productArr, function(i) {
+  $('#basket-list').append('<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 pr-1"><div id="bitem_' +productArr[i].id+'"class="border border-light rounded text-light input-group container-fluid p-0 mr-2 mb-2 basket-item"><div class="d-inline p-2 my-0 ml-0 mr-auto">'+ productArr[i].name + '</div><button class="btn btn-dark btn-sm  basket-minus-btn border-top-0 border-bottom-0 border-right-0 border-left rounded-0 border-light"><i class="fa fa-minus"></i></button><input type="text" class="form-control form-control-sm d-inline py-0 px-2 w-4 border-0 text-center amount_input" value="'+productArr[i].prod_amount+'" min="0" maxlength="999" style="min-width: 1rem; max-width: 3rem;" readonly><button class="btn btn-dark btn-sm d-inline basket-plus-btn border-top-0 border-bottom-0 border-left-0 border-right rounded-0 border-light "><i class="fa fa-plus"></i></button><button id="bitem_btn_'+productArr[i].id+'" class="btn btn-dark btn-sm basket-item-btn d-inline" data-id="'+productArr[i].id+'"> <i class="fa fa-times"></i></button></div></div>')
+  });
+  }    
+  
+   return false;
+}
+
+function basketStats(){
+  $('#basket-stats').empty();
+  productArr = JSON.parse(localStorage.getItem("basket"))
+  
+  var summ = 0
+  var num = 0
+  if(productArr){
+  $.each(productArr, function(i) {
+    summ+=parseInt(productArr[i].price)*parseInt(productArr[i].prod_amount);
+    num+=parseInt(productArr[i].prod_amount);
+  });
+}
+  $('#basket-stats').append('В Вашей корзине <b>'+num+'</b> товаров на <b>'+summ+'</b> р.')
+}
+
+
+$(document).ready(function() {
+
+  updateBasket();
+  basketStats();
+
+  $("#basket-list").on("click", ".basket-item-btn", function () {
+      
+    var bid = $(this).data('id');
+    var productArr=[]
+    productArr = JSON.parse(localStorage.getItem("basket"));
+      
+    var isave=0
+    if(productArr){
+    $.each(productArr, function(i) {
+      if (parseInt(productArr[i].id)==parseInt(bid)) {
+        isave=i            
+      }
+    });
+    }
+    productArr.splice(isave, 1);
+    var productJSON = JSON.stringify(productArr); 
+    localStorage.setItem("basket", productJSON); 
+
+    productArr = JSON.parse(localStorage.getItem("basket"))
+    
+    updateBasket();
+    basketStats();
+
+    return true;   
+   });
+
+
+  $("#basket-list").on("click", ".basket-minus-btn ", function () {
+    var result = +$(this).closest(".basket-item").find(".amount_input").val();
+    var prod_id = +$(this).closest(".basket-item").find(".basket-item-btn").data('id');
+    var productArr=[]    
+    productArr = JSON.parse(localStorage.getItem("basket"));
+    if(productArr){
+    if(result>0){
+        result = result - 1;
+
+    $(this).closest(".basket-item").find(".amount_input").val(result)
+    }
+    
+    $.each(productArr, function(i) {
+          
+          if (productArr[i].id==prod_id) {
+            productArr[i].prod_amount=result 
+            
+          }
+         
+      });}
+    var productJSON = JSON.stringify(productArr); 
+        localStorage.setItem("basket", productJSON); 
+         basketStats();
+    return true;
+  });
+
+  $("#basket-list").on("click", ".basket-plus-btn", function () {
+    var result = +$(this).closest(".basket-item").find(".amount_input").val(); 
+    var prod_id = +$(this).closest(".basket-item").find(".basket-item-btn").data('id');      
+    var productArr=[]
+    productArr = JSON.parse(localStorage.getItem("basket"));
+    console.log(result)
+    if(productArr){
+    $.each(productArr, function(i) {
+          
+          if (parseInt(productArr[i].id)==parseInt(prod_id)) {
+            console.log(prod_id)
+            if(parseInt(productArr[i].data_aq)>result)
+            { result++
+              productArr[i].prod_amount=result }
+          
+          }
+         
+      });}
+    console.log(result)
+    $(this).closest(".basket-item").find(".amount_input").val(result)
+    var productJSON = JSON.stringify(productArr); 
+    localStorage.setItem("basket", productJSON); 
+  
+     basketStats();
+    return true;
+  });
+
+});
+
+
+$(function(){  
+
+$(".add-btn").click(function() {
+    var product={
+      id: $(this).data('id'),
+      name: $(this).data('name'),
+      description: $(this).data('description'),
+      price: $(this).data('price'),
+      data_aq: $(this).data('aq'),
+      prod_amount: $(this).closest(".product-form").find(".amount_input").val(),
+    }
+
+    if(localStorage.getItem("basket")!= null)
+    {
+      productArr = JSON.parse(localStorage.getItem("basket"))
+      var a=0
+      $.each(productArr, function(i) {
+          
+          if (productArr[i].id==product.id) {
+            productArr[i].prod_amount=parseInt(productArr[i].prod_amount) + parseInt(product.prod_amount)
+            a++
+          }
+         
+      });
+       if (a==0) {
+            productArr.push(product);
+          }
+      var productJSON = JSON.stringify(productArr); 
+      localStorage.setItem("basket", productJSON); 
+    }
+      else
+      {
+        var productArr=[]
+        productArr.push(product);
+        var productJSON = JSON.stringify(productArr); 
+        localStorage.setItem("basket", productJSON); 
+        
+      }
+      productArr = JSON.parse(localStorage.getItem("basket"))
+        console.log(productArr)
+
+    updateBasket();
+    basketStats();
+  }); 
+   
+});
+
+
+
+</script>

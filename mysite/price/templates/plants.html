@@ -1,0 +1,135 @@
+{% extends "catalog.html" %}
+
+{% block catalog %}
+{% load static %}
+
+<div class="row row-flex no-gutters mb-2 ">
+  
+    <div class="col-12 ">
+        <div class="card text-white bg-secondary">
+              <div class="card-body">
+                    <h5 class="card-title ">Кровь упыря</h5>
+        
+          <div class="card-text flex-grow ">
+            <p>Добывается в горных рудниках, где драконы сражались с гномами. Используется для приворотов.</p>
+          </div>
+              </div>
+        </div>
+        </div>
+        </div>
+
+<div class="row row-flex no-gutters">
+
+{% for plant in plant_list %}
+
+{% if plant.product_type == 'plant' %}
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+        <div class="container-fluid px-1 h-100 pb-2">
+            {% load static %}
+            {% load staticfiles %}
+          <div class="card h-100 text-white bg-secondary ">
+
+            <button type="button" class="btn p-0 m-0" data-toggle="modal" data-target="#{{ plant.id }}">
+                {% load staticfiles %}
+              <div class="box">
+                  {% if plant.imgsrc_min %}
+                    <img class="d-block w-100" src="{{ plant.imgsrc_min.url }}" >
+                {% else %}
+                    <img class="d-block w-100" src="{% static 'img/img.svg' %}" >
+                {% endif %}
+              </div>
+            </button>
+        <div class="modal fade  " id="{{ plant.id }}" tabindex="-1" role="dialog"  aria-hidden="true">
+                     <div class="modal-dialog modal-lg .modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title text-dark" id="exampleModalLabel">{{ plant.name }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            {% load static %}
+                      {% if plant.imgsrc_full %}
+                          <img class="d-block w-100" src="{{ plant.imgsrc_full.url }}" >
+                        {% else %}
+                            <img class="d-block w-100" src="{% static 'img/img.svg' %}" >
+                        {% endif %}
+                          </div>
+                      </div>
+                    </div>
+                </div>
+
+            <div class="card-body d-flex flex-column flex-grow p-2">
+              {% load static %}
+              <h5 class="card-title ">{{ plant.name }}</h5>
+        
+          <div class="card-text flex-grow ">
+            <p>{{ plant.description }}</p>
+          </div>
+
+          <div class="w-100">
+            
+            <div class="row no-gutters">
+              <div class="container-fluid m-0 p-0">
+                <div class="d-flex">
+                  <div class="mr-auto"><p class=""> Цена <b>{{ plant.prise }}</b> руб.</p></div>
+                  <div><p > Всего <b>{{ plant.amount }}</b> шт.</p></div>
+                </div>
+              </div>
+            </div>
+          
+            <div class="row no-gutters product-form">
+                        <div class="col-12 col-sm-6 col-md-5 pl-0 pb-2 pb-sm-0">
+                            <div class="input-group container-fluid much pr-0 pl-0 ">
+                                <div class="input-group-prepend d-inline">
+                                    <button class="btn btn-dark btn-sm  minus-btn1" id="minus-btn"><i class="fa fa-minus"></i></button>
+                                </div>                                
+                                <input type="text" id="amount_input_{{ plant.id }}" class="form-control form-control-sm text-center d-inline amount_input" value="1" min="0" readonly>
+                                <div class="input-group-prepend ">
+                                    <button class="btn btn-dark btn-sm d-inline rounded-right plus-btn1" data-aq="{{ plant.amount }}" id="plus-btn"><i class="fa fa-plus"></i></button>
+                                </div>                               
+                            </div>
+                        </div>
+                      <div class="col-12 col-sm-6 col-md-7 ">
+                            <div class="input-group container-fluid px-0">
+                               <div class="input-group-prepend ml-0 ml-sm-1 container-fluid px-0">
+                                    <button class="add-btn btn btn-dark rounded btn-sm w-100 px-0" id="ok-btn"
+                                    data-id="{{ plant.id }}"
+                                    data-name="{{ plant.name }}"
+                                    data-description="{{ plant.description }}"
+                                    data-price="{{ plant.prise }}"
+                                    data-aq="{{ plant.amount }}">
+                                      Добавить <i class="fa fa-shopping-basket"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+          </div>
+          </div>
+            </div>            
+
+        </div>
+      </div>
+    </div>
+    {% endif %}
+{% endfor %}
+      
+</div>
+<div class="row row-flex no-gutters mb-2 mt-3">
+  
+    <div class="col-12 ">
+        <div class="card text-white bg-secondary">
+              <div class="card-body">
+                    <h5 class="card-title ">Кровь упыря</h5>
+        
+          <div class="card-text flex-grow ">
+            <p>Добывается в горных рудниках, где драконы сражались с гномами. Используется для приворотов.</p>
+          </div>
+              </div>
+        </div>
+        </div>
+        </div>
+
+
+{% endblock catalog %}

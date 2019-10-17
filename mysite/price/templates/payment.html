@@ -1,0 +1,285 @@
+{% extends "page.html" %}
+
+{% block page %}
+
+<div class="container-fluid  px-0 my-5 mx-0">
+	<div class="card bg-secondary p-0 m-0">
+    	<div class="card-body">
+    		<div class="row">
+    			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+<form action="/payment" method="post">
+    	{% csrf_token %}
+    	{% load widget_tweaks %}
+    	
+    <section class="container-fluid no-gutters">
+  		<h1>Оформление заказа</h1>
+
+
+  <div class="row px-0 my-2">
+   <!-- <input id="address" name="address" type="text" placeholder="Введите адрес" class="form-control" />-->
+    {% render_field form.address placeholder="Введите адрес" name="address" type="text" class+="adress form-control" %}
+  </div> 
+
+   <div class="row px-0 my-2">
+      <div class="col-2 no-gutters label px-0 pb-0 mb-0 d-flex">
+          <label for="postal_code" class="text-light pl-2 align-self-end">Индекс</label>
+      </div>
+      <div class="col-10 no-gutters value pr-0">
+          <!--<input type="text" id="postal_code" class="form-control" >-->
+          {% render_field form.postal_code name="postal_code" type="text" placeholder="Индекс" class+="postal_code form-control" %}
+      </div>
+  </div>
+
+  <div class="row my-2">
+      <div class="col-2 no-gutters label px-0 d-flex">
+          <label for="region" class="text-light pl-2 align-self-end">Регион</label>
+      </div>
+      <div class="col-10 no-gutters value pr-0">
+          <!--<input type="text" id="region" class="form-control" >-->
+          {% render_field form.region placeholder="Регион" name="region" type="text" class+="region form-control" %}
+      </div>
+  </div>
+
+  <div class="row my-2">
+      <div class="col-2 no-gutters label px-0 d-flex">
+          <label for="city" class="text-light pl-2 align-self-end">Город</label>
+      </div>
+      <div class="col-10 no-gutters value pr-0 ">
+          <!--<input type="text" id="city" class="form-control" >-->
+          {% render_field form.city placeholder="Город" class+="city form-control" %}
+      </div>
+  </div>
+
+  <div class="row my-2">
+      <div class="col-2 no-gutters label px-0 d-flex">
+          <label for="street" class="text-light pl-2 align-self-end">Улица</label>
+      </div>
+      <div class="col-10 no-gutters value pr-0">
+          <!--<input type="text" id="street" class="form-control" >-->
+          {% render_field form.street placeholder="Улица" class+="street form-control" %}
+      </div>
+  </div>
+
+  <div class="row my-2">
+      <div class="col-2 no-gutters label px-0 d-flex">
+          <label for="house" class="text-light pl-2 align-self-end">Дом</label>
+      </div>
+      <div class="col-10 no-gutters value pr-0">
+          <!--<input type="text" id="house" class="form-control" >-->
+          {% render_field form.house placeholder="Дом" class+="house form-control" %}
+      </div>
+  </div>
+
+  <div class="row my-2">
+      <div class="col-2 no-gutters label px-0 d-flex">
+          <label for="flat" class="text-light pl-2 align-self-end">Квартира</label>
+      </div>
+      <div class="col-10 no-gutters value pr-0">
+          <!--<input type="text" id="flat" class="form-control" >-->
+          {% render_field form.flat placeholder="Квартира" class+="flat form-control" %}
+      </div>
+  </div>  
+
+   <div class="row px-0 my-2">
+   	  <div class="col-2 no-gutters label px-0 d-flex">
+          <label for="id_FIO" class="text-light pl-2 align-self-end">ФИО</label>
+      </div>
+      <div class="col-10 no-gutters value pr-0">
+    {% render_field form.FIO placeholder="ФИО" class+="fullname form-control" %}
+    </div>
+  </div>
+
+  <div class="row px-0 my-2">
+  	<div class="col-2 no-gutters label px-0 d-flex">
+  		<label for="phone" class="text-light pl-2 pr-1 align-self-end">Телефон</label>
+  	</div>
+  	<div class="col-10 no-gutters value pr-0">
+		<!--<input type="phone" name="phone" class="form-control " id="phone" placeholder="Телефон">-->
+		{% render_field form.phone placeholder="Телефон"  class+="phone form-control" %}
+	</div>
+  </div>
+
+  <div class="row px-0 my-2">  
+  	<div class="col-2 no-gutters label px-0 d-flex">
+    <label for="email" class="text-light pl-2 align-self-end">Email</label>  
+</div>
+<div class="col-10 no-gutters value pr-0">
+   <!-- <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Введите email">-->
+    {% render_field form.email placeholder="Email"  class+="email form-control" %}
+</div>
+    <!--<div class="text-light">
+    <small id="emailHelp" class="form-text text-muted text-light">We'll never share your email with anyone else.</small></div>-->
+  </div>
+<!--
+  <div class="row px-0 my-2">    
+    <textarea type="text" class="form-control" rows="3" placeholder="Комментарий к заказу"></textarea>    
+  </div>
+-->
+  <div class="row px-0 my-2">
+  	<div class="col-2 no-gutters label px-0 d-flex">
+  		</div>
+  		<div class="col-10 no-gutters value pr-0">
+    <input type="submit" value="ЗАКАЗАТЬ" class="btn btn-light"/>
+    </div>
+  </div>
+
+    
+</section>
+</form>
+
+</div>
+
+
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+<div class="container">
+	<h1>Ваша корзина:</h1>
+	<div id="basket-payment" class="row">
+		
+	</div>
+
+
+</div>
+</div>
+</div>
+
+</div></div>
+</div>
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/suggestions-jquery@18.11.1/dist/css/suggestions.min.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/suggestions-jquery@latest/dist/js/jquery.suggestions.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--[if lt IE 10]>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/suggestions-jquery@18.11.1/dist/js/jquery.suggestions.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+  updateBasketPayment();
+});
+function updateBasketPayment(){
+    
+  $('#basket-payment').empty();
+
+  productArr = JSON.parse(localStorage.getItem("basket"));
+ 
+  if(productArr){
+  $.each(productArr, function(i) {
+  $('#basket-payment').append('<div class="col-12  pr-1"><div id="bitem_' +productArr[i].id+'"class="border border-light rounded text-light input-group container-fluid p-0 mr-2 mb-2 basket-item"><div class="d-inline p-2 my-0 ml-0 mr-auto">'+ productArr[i].name + '</div><button class="btn btn-dark btn-sm  basket-minus-btn border-top-0 border-bottom-0 border-right-0 border-left rounded-0 border-light"><i class="fa fa-minus"></i></button><input type="text" class="form-control form-control-sm d-inline py-0 px-2 w-4 border-0 text-center amount_input" value="'+productArr[i].prod_amount+'" min="0" maxlength="999" style="min-width: 1rem; max-width: 3rem;" readonly><button class="btn btn-dark btn-sm d-inline basket-plus-btn border-top-0 border-bottom-0 border-left-0 border-right rounded-0 border-light "><i class="fa fa-plus"></i></button><button id="bitem_btn_'+productArr[i].id+'" class="btn btn-dark btn-sm basket-item-btn d-inline" data-id="'+productArr[i].id+'"> <i class="fa fa-times"></i></button></div></div>')
+  });
+  }    
+  
+   return false;
+}
+
+
+$("#id_email").suggestions({
+  token: "e7c90d5792560882561442a7e9bf8c471a705193",
+  type: "EMAIL",
+  suggest_local: false,
+  onSelect: function(suggestion) {
+    console.log(suggestion);
+  }
+});
+
+
+
+
+
+
+function join(arr /*, separator */) {
+  var separator = arguments.length > 1 ? arguments[1] : ", ";
+  return arr.filter(function(n){return n}).join(separator);
+}
+
+
+function showPostalCode(address) {
+  $("#postal_code").val(address.postal_code);
+}
+
+function showRegion(address) {
+  $("#region").val(join([
+    join([address.region_type, address.region], " "),
+    join([address.area_type, address.area], " ")
+  ]));
+}
+
+function showCity(address) {
+  $("#city").val(join([
+    join([address.city_type, address.city], " "),
+    join([address.settlement_type, address.settlement], " ")
+  ]));
+}
+
+function showStreet(address) {
+  $("#street").val(
+    join([address.street_type, address.street], " ")
+  );
+}
+
+function showHouse(address) {
+  $("#house").val(join([
+    join([address.house_type, address.house], " "),
+    join([address.block_type, address.block], " ")
+  ]));
+}
+
+function showFlat(address) {
+  $("#flat").val(
+    join([address.flat_type, address.flat], " ")
+  );
+}
+
+
+function showSelected(suggestion) {
+  var address = suggestion.data;
+  showPostalCode(address);
+  showRegion(address);
+  showCity(address);
+  showStreet(address);
+  showHouse(address);
+  showFlat(address); 
+}
+
+$("#address").suggestions({
+  token: "e7c90d5792560882561442a7e9bf8c471a705193",
+  type: "ADDRESS",
+  onSelect: showSelected
+});
+
+
+  $(".fullname").suggestions({
+        token: "e7c90d5792560882561442a7e9bf8c471a705193",
+        type: "NAME",
+        count: 5,
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function(suggestion) {
+            console.log(suggestion);
+        }
+      });
+  $("#id_address").suggestions({
+        token: "e7c90d5792560882561442a7e9bf8c471a705193",
+        type: "ADDRESS",
+        count: 5,
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function(suggestion) {
+            console.log(suggestion);
+        }
+    });
+    $(".email").suggestions({
+        token: "e7c90d5792560882561442a7e9bf8c471a705193",
+        type: "EMAIL",
+        count: 5,
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function(suggestion) {
+            console.log(suggestion);
+        }
+    });
+
+
+</script>
+{% endblock %}
+

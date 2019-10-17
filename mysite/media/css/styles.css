@@ -1,0 +1,81 @@
+ html {
+  font-size: 1rem;
+}
+
+body {
+    background: url(http://rationhelper.pythonanywhere.com/static/img/10.jpg) no-repeat center;
+    background-size: cover;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 1rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 2rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 2.2rem;
+  }
+}
+        /*  div {
+              border: solid black 1px;
+          }
+          */
+          .no-gutters.row,
+.no-gutters.container,
+.no-gutters.container-fluid{
+  margin-left: 0;
+  margin-right: 0;
+  padding-right: 0;
+    padding-left: 0;
+
+  & > [class^="col-"],
+  & > [class*=" col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+  .navbar {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .jumbotron {
+
+    margin-top: 5rem;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .row-prev {
+      padding-top: 6rem;
+  }
+  .row-post {
+      margin-bottom: 6rem;
+  }
+  .sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.fa-shopping-basket {
+  color: text-light;
+}
+
+
+
+.row-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-grow {
+    flex: 1 0 auto;
+}
